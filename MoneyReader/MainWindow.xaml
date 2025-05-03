@@ -7,7 +7,8 @@
         xmlns:uc="clr-namespace:MoneyReader.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="640">
-    <StackPanel>
-        <uc:FileSelector FileRead="OnFileRead" />
+    <StackPanel Margin="10">
+        <uc:FileSelector FileRead="OnFileRead" Margin="0, 0, 0, 10" />
+        <uc:Configurator />
     </StackPanel>
 </Window>

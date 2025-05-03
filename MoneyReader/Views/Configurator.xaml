@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="MoneyReader.Views.Configurator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MoneyReader.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="IgnoreTextBox" />
+        <Button Grid.Column="1" Content="Add new prefix to ignore" Click="OnAddPrefixClick" />
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Visibility="{Binding VM.HasIgnoredPrefixes, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="Ignored prefixes:" />
+            <ListBox ItemsSource="{Binding VM.IgnoredPrefixes}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}" />
+                            <Button Content="Remove prefix" Tag="{Binding}" Click="OnRemovePrefixClick" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

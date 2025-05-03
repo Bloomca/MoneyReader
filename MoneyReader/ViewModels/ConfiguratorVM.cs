@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoneyReader.Utils;
+using MoneyReader.Classes;
 
 namespace MoneyReader.ViewModels
 {
@@ -36,6 +37,24 @@ namespace MoneyReader.ViewModels
             if (hasNoPrefixes)
             {
                 OnPropertyChanged(nameof(HasIgnoredPrefixes));
+            }
+        }
+
+        private ObservableCollection<Category> _categories = [];
+
+        public ObservableCollection<Category> Categories { get => _categories; }
+
+        public void AddCategory(Category category)
+        {
+            _categories.Add(category);
+        }
+
+        public void RemoveCategory(string categoryName)
+        {
+            var category = _categories.First(c => c.Name == categoryName);
+            if (category != null)
+            {
+                _categories.Remove(category);
             }
         }
     }

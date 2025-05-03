@@ -15,6 +15,12 @@
             <RowDefinition />
             <RowDefinition Height="10" />
             <RowDefinition />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+            <RowDefinition Height="10" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -29,7 +35,7 @@
             <ListBox ItemsSource="{Binding VM.IgnoredPrefixes}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
+                        <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding}" />
                             <Button Content="Remove prefix" Tag="{Binding}" Click="OnRemovePrefixClick" />
                         </StackPanel>
@@ -38,5 +44,34 @@
             </ListBox>
         </StackPanel>
 
+        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" x:Name="CategoryTextBox" />
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <RadioButton x:Name="RadioStarts" GroupName="CategoryType" Content="Starts with" IsChecked="True" Margin="0, 0, 5, 0" />
+                <RadioButton x:Name="RadioContains" GroupName="CategoryType" Content="Contains" />
+            </StackPanel>
+
+            <Button Grid.Column="2" Content="Add new category" Click="OnCategoryAdd" />
+        </Grid>
+
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
+            <TextBlock Text="Categories:" />
+            <ListBox ItemsSource="{Binding VM.Categories}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Type}" />
+                            <Button Content="Remove category" Tag="{Binding Name}" Click="OnRemoveCategoryClick" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </Grid>
 </UserControl>

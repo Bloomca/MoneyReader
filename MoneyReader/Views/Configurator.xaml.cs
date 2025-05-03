@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MoneyReader.ViewModels;
+using MoneyReader.Classes;
 
 namespace MoneyReader.Views
 {
@@ -21,11 +22,13 @@ namespace MoneyReader.Views
     /// </summary>
     public partial class Configurator : UserControl
     {
-        public ConfiguratorVM VM { get; } = new ConfiguratorVM();
+        public ConfiguratorVM VM { get; }
         public Configurator()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            VM = new ConfiguratorVM();
         }
 
         private void OnAddPrefixClick(object sender, RoutedEventArgs e)
@@ -47,6 +50,29 @@ namespace MoneyReader.Views
             if (sender is Button { Tag: string prefixToRemove })
             {
                 VM.RemoveIgnoredPrefix(prefixToRemove);
+            }
+        }
+
+        private void OnCategoryAdd(object sender, RoutedEventArgs e)
+        {
+            string categoryName = CategoryTextBox.Text;
+
+            if (String.IsNullOrEmpty(categoryName))
+            {
+                // Simply ignore the button click for now
+                return;
+            }
+
+            CategoryMatchingType type = RadioContains.IsChecked == true ? CategoryMatchingType.Contains : CategoryMatchingType.StartsWith;
+
+            VM.AddCategory(new Category(categoryName, type));
+        }
+
+        private void OnRemoveCategoryClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button { Tag: string categoryToRemove })
+            {
+                VM.RemoveCategory(categoryToRemove);
             }
         }
     }

@@ -23,12 +23,12 @@ namespace MoneyReader.Views
     public partial class Configurator : UserControl
     {
         public ConfiguratorVM VM { get; }
-        public Configurator()
+        public Configurator(ConfiguratorVM configuratorVM)
         {
             InitializeComponent();
             this.DataContext = this;
 
-            VM = new ConfiguratorVM();
+            VM = configuratorVM;
         }
 
         private void OnAddPrefixClick(object sender, RoutedEventArgs e)

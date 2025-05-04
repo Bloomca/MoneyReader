@@ -27,11 +27,13 @@ namespace MoneyReader.Views
     {
         public event FileReadEventHandler? FileRead;
         public FileSelectorVM VM { get; }
-        public FileSelector()
+        public FileSelector(FileReadEventHandler OnRead)
         {
             InitializeComponent();
             VM = new FileSelectorVM();
             this.DataContext = this;
+
+            FileRead += OnRead;
         }
 
         private async void File_Select_Click(object sender, RoutedEventArgs e)

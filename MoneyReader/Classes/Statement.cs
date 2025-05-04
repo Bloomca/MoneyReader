@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyReader.Classes
 {
-    internal class Statement
+    public class Statement
     {
         public DateTime Date { get; }
 

@@ -12,6 +12,8 @@ namespace MoneyReader.Classes
     public class CsvStatementReader
     {
         private List<Statement> _statements = [];
+
+        public List<Statement> Statements { get =>  _statements; }
         public async Task<bool> AskForFile()
         {
             var fileDialog = new OpenFileDialog() { Filter = "CSV documents (.csv)|*.csv" };

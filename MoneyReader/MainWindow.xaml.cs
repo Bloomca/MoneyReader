@@ -21,13 +21,11 @@ namespace MoneyReader
     /// </summary>
     public partial class MainWindow : Window
     {
-        public CsvStatementReader CsvStatementReader { get; }
-        public ConfiguratorVM ConfiguratorVM { get; }
+        private ConfiguratorVM _configuratorVM { get; }
 
         public MainWindow()
         {
-            CsvStatementReader = new CsvStatementReader();
-            ConfiguratorVM = new ConfiguratorVM();
+            _configuratorVM = new ConfiguratorVM();
 
             InitializeComponent();
 
@@ -37,10 +35,15 @@ namespace MoneyReader
 
         public void OnFileRead(object sender, CsvStatementReader reader)
         {
-            Trace.WriteLine("HELLO");
-
-            var configurator = new Configurator(ConfiguratorVM);
+            var configurator = new Configurator(_configuratorVM);
+            Grid.SetRow(configurator, 2);
             ContainerElement.Children.Add(configurator);
+
+            var analyzerVM = new AnalyzerVM(_configuratorVM, reader);
+            var analyzer = new Analyzer(analyzerVM);
+            Grid.SetRow(analyzer, 4);
+
+            ContainerElement.Children.Add(analyzer);
         }
     }
 }

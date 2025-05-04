@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MoneyReader.Utils;
 using MoneyReader.Classes;
+using System.Diagnostics;
 
 namespace MoneyReader.ViewModels
 {
@@ -21,7 +22,7 @@ namespace MoneyReader.ViewModels
         private ConfiguratorVM _configuratorVM;
 
         private List<DataCategory> _data = [];
-        public List<DataCategory> Data { get => _data; }
+        public List<DataCategory> Data { get => _data; private set => SetProperty(ref _data, value); }
 
         public AnalyzerVM(ConfiguratorVM configuratorVM, CsvStatementReader csvStatementReader)
         {
@@ -80,7 +81,7 @@ namespace MoneyReader.ViewModels
                 Statements = uncategorizedStatements
             });
 
-            _data = newFormattedData;
+            Data = newFormattedData;
         }
 
         private string IgnorePrefixes(string statementName)

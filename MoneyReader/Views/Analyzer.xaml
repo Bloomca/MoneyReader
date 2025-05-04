@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:MoneyReader.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ItemsControl ItemsSource="{Binding VM.Data}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border Margin="5" Padding="5" BorderBrush="LightGray" BorderThickness="1">
+                            <TextBlock Text="{Binding Category.Name}" />
+                        </Border>
+                        <ItemsControl ItemsSource="{Binding Statements}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5,2,5,2" Padding="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                        <TextBlock Text="{Binding Name}" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </UserControl>

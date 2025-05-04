@@ -66,6 +66,7 @@ namespace MoneyReader.Views
             CategoryMatchingType type = RadioContains.IsChecked == true ? CategoryMatchingType.Contains : CategoryMatchingType.StartsWith;
 
             VM.AddCategory(new Category(categoryName, type));
+            CategoryTextBox.Clear();
         }
 
         private void OnRemoveCategoryClick(object sender, RoutedEventArgs e)

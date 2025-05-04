@@ -61,14 +61,19 @@
 
         <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
             <TextBlock Text="Categories:" />
-            <ListBox ItemsSource="{Binding VM.Categories}">
+            <ListBox ItemsSource="{Binding VM.Categories}" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" />
-                            <TextBlock Text="{Binding Type}" />
-                            <Button Content="Remove category" Tag="{Binding Name}" Click="OnRemoveCategoryClick" />
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" Margin="0, 0, 10, 0" />
+                            <TextBlock Foreground="Gray" Grid.Column="1" Text="{Binding Type}" />
+                            <Button Content="Remove category" Grid.Column="2" Tag="{Binding Name}" Click="OnRemoveCategoryClick" />
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

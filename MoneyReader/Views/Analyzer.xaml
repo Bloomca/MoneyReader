@@ -10,20 +10,33 @@
         <ItemsControl ItemsSource="{Binding VM.Data}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <Border Margin="5" Padding="5" BorderBrush="LightGray" BorderThickness="1">
-                            <TextBlock Text="{Binding Category.Name}" />
-                        </Border>
+                    <Expander Margin="5" IsExpanded="True">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Category.Name}" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding Statements.Count, StringFormat='({0})'}" Foreground="Gray" />
+
+                                <TextBlock Text="{Binding BalanceChange, StringFormat='{}{0:C}'}" 
+           Foreground="{Binding BalanceColor}" />
+                            </StackPanel>
+                        </Expander.Header>
                         <ItemsControl ItemsSource="{Binding Statements}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="5,2,5,2" Padding="3" BorderBrush="LightGray" BorderThickness="0,0,0,1">
-                                        <TextBlock Text="{Binding Name}" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Transaction, StringFormat='{}{0:C}'}" />
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </StackPanel>
+                    </Expander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

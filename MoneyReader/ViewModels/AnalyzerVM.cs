@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MoneyReader.Utils;
 using MoneyReader.Classes;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace MoneyReader.ViewModels
 {
@@ -14,6 +15,13 @@ namespace MoneyReader.ViewModels
     {
         public Category Category { get; init; }
         public List<Statement> Statements { get; init; }
+
+        public decimal BalanceChange { get; init; }
+
+        public Brush BalanceColor =>
+            BalanceChange > 0 ? Brushes.Green :
+            BalanceChange < 0 ? Brushes.Red :
+            Brushes.Black;
     }
 
     public class AnalyzerVM : BaseVM
@@ -72,13 +80,18 @@ namespace MoneyReader.ViewModels
 
             foreach (var item in newData)
             {
-                newFormattedData.Add(new DataCategory() { Category = item.Key, Statements = item.Value });
+                newFormattedData.Add(new DataCategory() {
+                    Category = item.Key,
+                    Statements = item.Value,
+                    BalanceChange = CalculateCategoryBalance(item.Value)
+                });
             }
 
             newFormattedData.Add(new DataCategory()
             {
                 Category = new Category("No category", CategoryMatchingType.StartsWith),
-                Statements = uncategorizedStatements
+                Statements = uncategorizedStatements,
+                BalanceChange = CalculateCategoryBalance(uncategorizedStatements)
             });
 
             Data = newFormattedData;
@@ -134,5 +147,16 @@ namespace MoneyReader.ViewModels
             return null;
         }
 
+        private decimal CalculateCategoryBalance(List<Statement> statements)
+        {
+            decimal balance = 0;
+
+            foreach (var statement in statements)
+            {
+                balance += statement.Transaction * (statement.IsSpending ? -1 : 1);
+            }
+
+            return balance;
+        }
     }
 }

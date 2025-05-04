@@ -51,9 +51,9 @@ namespace MoneyReader.Classes
                 }
 
                 var date = DateTime.Parse(parsedItems[0]);
-                var merchant = parsedItems[1];
+                var merchant = ParseMerchant(parsedItems[1]);
                 var isSpending = parsedItems[2].StartsWith('-');
-                var transaction = Math.Abs(Decimal.Parse(parsedItems[3].Replace("$", "")));
+                var transaction = Math.Abs(Decimal.Parse(parsedItems[2].Replace("$", "")));
                 var balance = Decimal.Parse(parsedItems[3].Replace("$", ""));
 
                 _statements.Add(new Statement(date, merchant, transaction, isSpending, balance));
@@ -62,6 +62,15 @@ namespace MoneyReader.Classes
             return true;
         }
 
-
+        private string ParseMerchant(string merchant)
+        {
+            if (merchant.StartsWith('"') && merchant.EndsWith('"'))
+            {
+                return merchant.Substring(1, merchant.Length - 2);
+            } else
+            {
+                return merchant;
+            }
+        }
     }
 }
